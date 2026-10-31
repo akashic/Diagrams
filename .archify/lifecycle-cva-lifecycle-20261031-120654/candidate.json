@@ -1,0 +1,129 @@
+{
+  "schema_version": 3,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Valuation Request Lifecycle",
+    "locale": "en",
+    "output": ".archify/lifecycle-cva-lifecycle-20261031-120654/cva-lifecycle.html",
+    "quality_profile": "showcase"
+  },
+  "mainPath": [
+    "submitted",
+    "scoring",
+    "building_report",
+    "sent"
+  ],
+  "states": [
+    {
+      "id": "submitted",
+      "type": "start",
+      "label": "Submitted",
+      "sublabel": "request + Shortlist Entries written",
+      "tag": "app",
+      "step": "01"
+    },
+    {
+      "id": "scoring",
+      "type": "active",
+      "label": "Scoring",
+      "sublabel": "Match Score per Shortlist Entry",
+      "tag": "orchestrator",
+      "step": "02"
+    },
+    {
+      "id": "building_report",
+      "type": "active",
+      "label": "Building Report",
+      "sublabel": "Valuation Report workbook",
+      "tag": "orchestrator",
+      "step": "03"
+    },
+    {
+      "id": "sent",
+      "type": "success",
+      "label": "Sent",
+      "sublabel": "Valuation Report emailed",
+      "tag": "terminal",
+      "step": "04"
+    },
+    {
+      "id": "failed",
+      "type": "failure",
+      "label": "Failed",
+      "sublabel": "failure email to User",
+      "tag": "terminal"
+    }
+  ],
+  "transitions": [
+    {
+      "id": "submitted-scoring",
+      "from": "submitted",
+      "to": "scoring",
+      "label": "row-added trigger"
+    },
+    {
+      "id": "scoring-building",
+      "from": "scoring",
+      "to": "building_report",
+      "label": "entries scored or not scored"
+    },
+    {
+      "id": "building-sent",
+      "from": "building_report",
+      "to": "sent",
+      "label": "report emailed",
+      "variant": "emphasis"
+    },
+    {
+      "id": "submitted-failed",
+      "from": "submitted",
+      "to": "failed",
+      "label": "stage fails",
+      "variant": "security"
+    },
+    {
+      "id": "scoring-failed",
+      "from": "scoring",
+      "to": "failed",
+      "label": "stage fails",
+      "variant": "security"
+    },
+    {
+      "id": "building-failed",
+      "from": "building_report",
+      "to": "failed",
+      "label": "stage fails",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Happy Path",
+      "items": [
+        "The app writes the Valuation Request as Submitted with its Shortlist Entries",
+        "Submitted to Scoring: the Dataverse row-added trigger starts orchestration",
+        "Scoring to Building Report: every Shortlist Entry is scored or marked not scored",
+        "Building Report to Sent: Outlook emails the Valuation Report to the User and the report link is saved"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Partial Scoring Is Not Failure",
+      "items": [
+        "A Shortlist Entry whose retries are exhausted is marked not scored",
+        "Scoring continues, and unscored entries appear in the report marked as such",
+        "A single not-scored entry never fails the Valuation Request"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Failed and No Draft",
+      "items": [
+        "Failed is reached only when a whole stage fails, from Submitted, Scoring or Building Report",
+        "Entering Failed emails the User a failure notice",
+        "There is no Draft state because searches before submission are not saved"
+      ]
+    }
+  ]
+}

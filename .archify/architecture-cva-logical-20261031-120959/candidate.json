@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Client Valuation Automation: logical architecture",
+    "locale": "en",
+    "output": ".archify/architecture-cva-logical-20261031-120959/cva-logical.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "idp", "type": "security", "label": "Identity Provider", "sublabel": "work-account sign-in", "pos": [40, 40], "size": [150, 64] },
+    { "id": "user", "type": "external", "icon": "person", "label": "User", "sublabel": "valuation staff", "pos": [40, 200], "size": [120, 64] },
+    { "id": "webapp", "type": "frontend", "label": "Web App", "sublabel": "request form", "pos": [340, 200], "size": [170, 64] },
+    { "id": "search", "type": "backend", "label": "Search Service", "sublabel": "get options · count · search", "pos": [340, 380], "size": [170, 64] },
+    { "id": "db", "type": "database", "label": "Company Database", "sublabel": "Listed Companies + requests", "pos": [680, 380], "size": [180, 64] },
+    { "id": "vendor", "type": "external", "label": "Market Data Vendor", "sublabel": "Listed Company data", "pos": [1020, 380], "size": [170, 64] },
+    { "id": "orch", "type": "backend", "label": "Orchestrator", "sublabel": "service identity", "pos": [690, 560], "size": [160, 64] },
+    { "id": "ai", "type": "cloud", "label": "AI Scoring Service", "sublabel": "Match Score + rationale", "pos": [1020, 560], "size": [170, 64] },
+    { "id": "email", "type": "cloud", "label": "Email Service", "sublabel": "report or failure notice", "pos": [40, 740], "size": [140, 64] },
+    { "id": "report", "type": "backend", "label": "Report Service", "sublabel": "workbook from template", "pos": [690, 740], "size": [160, 64] }
+  ],
+  "connections": [
+    { "id": "sign-in", "from": "user", "to": "idp", "label": "sign in", "variant": "security" },
+    { "id": "enter-criteria", "from": "user", "to": "webapp", "label": "Client + Search Criteria", "variant": "emphasis" },
+    { "id": "search-ops", "from": "webapp", "to": "search", "label": "get options · count · search", "variant": "emphasis" },
+    { "id": "query-companies", "from": "search", "to": "db", "label": "query Listed Companies" },
+    { "id": "submit-request", "from": "webapp", "to": "db", "label": "submit Valuation Request", "variant": "emphasis", "fromSide": "right", "toSide": "top" },
+    { "id": "monthly-import", "from": "vendor", "to": "db", "label": "monthly import", "variant": "dashed" },
+    { "id": "start-on-submit", "from": "db", "to": "orch", "label": "on submit", "variant": "emphasis" },
+    { "id": "update-request", "from": "orch", "to": "db", "label": "status + Match Scores" },
+    { "id": "score-entries", "from": "orch", "to": "ai", "label": "score Shortlist Entries", "variant": "emphasis" },
+    { "id": "build-report", "from": "orch", "to": "report", "label": "build Valuation Report", "variant": "emphasis" },
+    { "id": "send-email", "from": "orch", "to": "email", "label": "send report or failure notice", "variant": "emphasis", "fromSide": "left", "toSide": "right" },
+    { "id": "deliver-report", "from": "email", "to": "user", "label": "Valuation Report (Excel)", "variant": "emphasis", "fromSide": "top", "toSide": "bottom" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Search", "items": ["get options returns the values still possible in each filter", "count gives the live number of matching Listed Companies", "search returns the top 50 by Market Cap as the Shortlist; submit is blocked at zero matches"] },
+    { "dot": "emerald", "title": "Valuation Request", "items": ["Submitted → Scoring → Building Report → Sent", "Failed from any stage, with a failure notice to the User", "A single Shortlist Entry that cannot be scored is marked not scored"] },
+    { "dot": "rose", "title": "Access", "items": ["Users read Listed Companies and reference data", "Users create and read only their own Valuation Requests and Shortlist Entries", "The Orchestrator's service identity means Users never reach the AI, report or email services directly"] }
+  ]
+}

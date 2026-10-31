@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "sequence",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/sequence-cva-sequence-scoring-20261031-120714/candidate.json",
+    "sha256": "069d4ae02ee56c6400fb549bc6e6e406ce7946356a4031978fa933822904c973",
+    "bytes": 8728
+  },
+  "artifact": {
+    "path": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/sequence-cva-sequence-scoring-20261031-120714/cva-sequence-scoring.html",
+    "sha256": "f6d9917f574fe7318b097d4c86dac324fc00cd079af39d21b9c8afb5998e96a8",
+    "bytes": 1005911
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/sequence-cva-sequence-scoring-20261031-120714/review-2/cva-sequence-scoring.finalize.json",
+    "summaryReceipt": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/sequence-cva-sequence-scoring-20261031-120714/review-2/cva-sequence-scoring.finalize-summary.json",
+    "browserCheckReceipt": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/sequence-cva-sequence-scoring-20261031-120714/review-2/cva-sequence-scoring.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-31T01:06:54.815Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 5761,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

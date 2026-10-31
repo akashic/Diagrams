@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "409ac710-48c7-495f-9bbe-8c905a454262",
+  "status": "current",
+  "command": "deliver",
+  "type": "lifecycle",
+  "input": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/lifecycle-cva-lifecycle-20261031-120654/candidate.json",
+  "output": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/lifecycle-cva-lifecycle-20261031-120654/cva-lifecycle.html",
+  "specification": {
+    "sha256": "8c896c177f32e9ba06c7b083223ae5537e5f3291c315a220de4d8f2f175af9d6",
+    "bytes": 3337
+  },
+  "artifact": {
+    "sha256": "f079bbfd1ce7e8199370c242f91739a8a9322040bb2107b4433b3a0c7996d6da",
+    "bytes": 814242
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "power-apps":     { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-apps.png",     "sha256": "3dcc42141a27b0195d1210bdfdb69cffb332076195f1814e26168f9fe9a049ab" },
+  "power-automate": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-automate.png", "sha256": "e515389cfdad9104f6ab40220e9ea41d629aa6404ccb3d3f35a227e05a81b3bb" },
+  "dataverse":      { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/dataverse.png",      "sha256": "a23ebba98010021329a98b14b2c05ca08cee1591233606398fb862525a864e5e" },
+  "azure-openai":   { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/azure-openai.png",   "sha256": "b8d51eeae08c67232154580a6de0eb11b5abe749e3900ec3b082af4599466a06" },
+  "excel":          { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/excel.png",          "sha256": "7e293aa991a7e3445286b19d7c473274e5966e4a8c0658e009d0d81ccf0ece98" },
+  "outlook":        { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/outlook.png",        "sha256": "c0fac716315c9ef4688f41d16a8263a69f7622bfc5c71a686e29c4d28167173d" },
+  "sharepoint":     { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/sharepoint.png",     "sha256": "11b9d89399057335564256dc3c294f9cc85af17b8e05d077fcc954a8ee2dad0c" },
+  "entra-id":       { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/entra-id.png",       "sha256": "67196833011dadeda0865fceb958eb2e25df6877dafc485cf472e78a8c2ada8d" }
+}

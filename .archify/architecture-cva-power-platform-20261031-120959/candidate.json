@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Client Valuation Automation: as-built on Power Platform",
+    "locale": "en",
+    "output": ".archify/architecture-cva-power-platform-20261031-120959/cva-power-platform.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "entra", "type": "security", "label": "Microsoft Entra ID", "sublabel": "work-account sign-in", "pos": [40, 40], "size": [170, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/entra-id.png", "sha256": "67196833011dadeda0865fceb958eb2e25df6877dafc485cf472e78a8c2ada8d" } },
+    { "id": "vendor", "type": "external", "label": "Market Data Vendor", "sublabel": "Listed Company data", "pos": [990, 40], "size": [170, 64] },
+    { "id": "user", "type": "external", "icon": "person", "label": "User", "sublabel": "valuation staff", "pos": [40, 200], "size": [120, 64] },
+    { "id": "app", "type": "frontend", "label": "Canvas Power App", "sublabel": "request form", "pos": [340, 200], "size": [170, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-apps.png", "sha256": "3dcc42141a27b0195d1210bdfdb69cffb332076195f1814e26168f9fe9a049ab" } },
+    { "id": "search", "type": "backend", "label": "Search flows", "sublabel": "instant Power Automate", "pos": [340, 380], "size": [170, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-automate.png", "sha256": "e515389cfdad9104f6ab40220e9ea41d629aa6404ccb3d3f35a227e05a81b3bb" } },
+    { "id": "dv", "type": "database", "label": "Dataverse", "sublabel": "Listed Companies + requests", "pos": [680, 380], "size": [180, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/dataverse.png", "sha256": "a23ebba98010021329a98b14b2c05ca08cee1591233606398fb862525a864e5e" } },
+    { "id": "dataflow", "type": "backend", "label": "Dataverse dataflow", "sublabel": "Power Query · monthly", "pos": [990, 380], "size": [170, 64] },
+    { "id": "orch", "type": "backend", "label": "Orchestration flow", "sublabel": "automated · row added", "pos": [685, 560], "size": [170, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-automate.png", "sha256": "e515389cfdad9104f6ab40220e9ea41d629aa6404ccb3d3f35a227e05a81b3bb" } },
+    { "id": "outlook", "type": "cloud", "label": "Office 365 Outlook", "sublabel": "connector", "pos": [40, 760], "size": [150, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/outlook.png", "sha256": "c0fac716315c9ef4688f41d16a8263a69f7622bfc5c71a686e29c4d28167173d" } },
+    { "id": "sharepoint", "type": "database", "label": "SharePoint", "sublabel": "template workbook", "pos": [340, 760], "size": [170, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/sharepoint.png", "sha256": "11b9d89399057335564256dc3c294f9cc85af17b8e05d077fcc954a8ee2dad0c" } },
+    { "id": "excel", "type": "cloud", "label": "Excel Online (Business)", "sublabel": "connector", "pos": [680, 760], "size": [180, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/excel.png", "sha256": "7e293aa991a7e3445286b19d7c473274e5966e4a8c0658e009d0d81ccf0ece98" } },
+    { "id": "aoai", "type": "cloud", "label": "Azure OpenAI", "sublabel": "GPT-4-class · custom connector", "pos": [980, 760], "size": [180, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/azure-openai.png", "sha256": "b8d51eeae08c67232154580a6de0eb11b5abe749e3900ec3b082af4599466a06" } }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Power Platform environment (production)", "wraps": ["app", "search", "dv", "dataflow", "orch"] },
+    { "kind": "region", "label": "Microsoft 365", "wraps": ["outlook", "sharepoint", "excel"] },
+    { "kind": "region", "label": "Azure", "wraps": ["aoai"] }
+  ],
+  "connections": [
+    { "id": "sign-in", "from": "user", "to": "entra", "label": "sign in", "variant": "security" },
+    { "id": "enter-criteria", "from": "user", "to": "app", "label": "Client + Search Criteria", "variant": "emphasis" },
+    { "id": "search-ops", "from": "app", "to": "search", "label": "get options · count · search", "variant": "emphasis" },
+    { "id": "query-companies", "from": "search", "to": "dv", "label": "query Listed Companies" },
+    { "id": "submit-request", "from": "app", "to": "dv", "label": "submit Valuation Request", "variant": "emphasis", "fromSide": "right", "toSide": "top" },
+    { "id": "monthly-pull", "from": "vendor", "to": "dataflow", "label": "monthly pull", "variant": "dashed" },
+    { "id": "upsert", "from": "dataflow", "to": "dv", "label": "upsert in place", "variant": "dashed" },
+    { "id": "row-added", "from": "dv", "to": "orch", "label": "row added trigger", "variant": "emphasis" },
+    { "id": "update-request", "from": "orch", "to": "dv", "label": "status + Match Scores" },
+    { "id": "score-entries", "from": "orch", "to": "aoai", "label": "score each Shortlist Entry", "variant": "emphasis", "fromSide": "right", "toSide": "top" },
+    { "id": "copy-template", "from": "orch", "to": "sharepoint", "label": "copy template per request", "fromSide": "bottom", "toSide": "top" },
+    { "id": "fill-rows", "from": "orch", "to": "excel", "label": "add rows · fill summary", "variant": "emphasis" },
+    { "id": "write-workbook", "from": "excel", "to": "sharepoint", "label": "write workbook" },
+    { "id": "send-email", "from": "orch", "to": "outlook", "label": "send report or failure notice", "variant": "emphasis", "fromSide": "left", "toSide": "right" },
+    { "id": "deliver-report", "from": "outlook", "to": "user", "label": "Valuation Report (Excel)", "variant": "emphasis", "fromSide": "top", "toSide": "bottom" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Search", "items": ["Instant flows run get options, count and search; Canvas App delegation limits make distinct values and counts over 40,000 rows impractical in the app", "Sector, Industry and Country lists are read directly from Dataverse reference tables", "search returns the top 50 Listed Companies by Market Cap as the Shortlist"] },
+    { "dot": "emerald", "title": "Orchestration", "items": ["Parallel Apply to each scores one Shortlist Entry per iteration, with built-in retry; an exhausted entry is marked not scored", "Rows sorted by Match Score, highest first; status moves Submitted → Scoring → Building Report → Sent", "A whole-stage failure sets Failed and emails the User a failure notice"] },
+    { "dot": "rose", "title": "Access", "items": ["Users sign in with Microsoft Entra ID work accounts", "Users create and read only their own Valuation Requests and Shortlist Entries", "Flow connections use a service account, so Users never reach Azure OpenAI, SharePoint or Outlook directly"] }
+  ]
+}

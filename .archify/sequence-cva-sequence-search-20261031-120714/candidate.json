@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Client Valuation Automation: Search",
+    "output": ".archify/sequence-cva-sequence-search-20261031-120714/cva-sequence-search.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "participants": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "User",
+      "sublabel": "valuation staff"
+    },
+    {
+      "id": "entra",
+      "type": "security",
+      "label": "Microsoft Entra ID",
+      "sublabel": "work account sign-in",
+      "brand": {
+        "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/entra-id.png",
+        "sha256": "67196833011dadeda0865fceb958eb2e25df6877dafc485cf472e78a8c2ada8d"
+      }
+    },
+    {
+      "id": "app",
+      "type": "frontend",
+      "label": "Canvas Power App",
+      "sublabel": "request form",
+      "brand": {
+        "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-apps.png",
+        "sha256": "3dcc42141a27b0195d1210bdfdb69cffb332076195f1814e26168f9fe9a049ab"
+      }
+    },
+    {
+      "id": "flows",
+      "type": "backend",
+      "label": "Power Automate search flows",
+      "sublabel": "get options, count, search",
+      "brand": {
+        "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-automate.png",
+        "sha256": "e515389cfdad9104f6ab40220e9ea41d629aa6404ccb3d3f35a227e05a81b3bb"
+      }
+    },
+    {
+      "id": "dv",
+      "type": "database",
+      "label": "Dataverse",
+      "sublabel": "Listed Companies, reference tables",
+      "brand": {
+        "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/dataverse.png",
+        "sha256": "a23ebba98010021329a98b14b2c05ca08cee1591233606398fb862525a864e5e"
+      }
+    }
+  ],
+  "segments": [
+    {
+      "from": 160,
+      "to": 362,
+      "label": "Sign in and load"
+    },
+    {
+      "from": 372,
+      "to": 690,
+      "label": "Loop: on each selection change"
+    },
+    {
+      "from": 700,
+      "to": 870,
+      "label": "Search"
+    },
+    {
+      "from": 880,
+      "to": 992,
+      "label": "Refine or submit"
+    }
+  ],
+  "messages": [
+    {
+      "id": "sign-in",
+      "from": "user",
+      "to": "entra",
+      "y": 180,
+      "label": "sign in with work account",
+      "variant": "security"
+    },
+    {
+      "id": "signed-in",
+      "from": "entra",
+      "to": "user",
+      "y": 208,
+      "label": "authenticated",
+      "variant": "return"
+    },
+    {
+      "id": "open-app",
+      "from": "user",
+      "to": "app",
+      "y": 236,
+      "label": "open Canvas App"
+    },
+    {
+      "id": "load-lists",
+      "from": "app",
+      "to": "dv",
+      "y": 264,
+      "label": "read Sector, Industry, Country lists",
+      "note": "read directly from reference tables, no flow"
+    },
+    {
+      "id": "lists",
+      "from": "dv",
+      "to": "app",
+      "y": 320,
+      "label": "reference lists",
+      "variant": "return"
+    },
+    {
+      "id": "enter-client",
+      "from": "user",
+      "to": "app",
+      "y": 348,
+      "label": "enter Client description"
+    },
+    {
+      "id": "change-criteria",
+      "from": "user",
+      "to": "app",
+      "y": 392,
+      "label": "change Search Criteria",
+      "note": "Sectors, Industries, Countries, Market Cap min/max"
+    },
+    {
+      "id": "get-options",
+      "from": "app",
+      "to": "flows",
+      "y": 450,
+      "label": "get options",
+      "variant": "emphasis"
+    },
+    {
+      "id": "query-options",
+      "from": "flows",
+      "to": "dv",
+      "y": 478,
+      "label": "query remaining values"
+    },
+    {
+      "id": "option-rows",
+      "from": "dv",
+      "to": "flows",
+      "y": 506,
+      "label": "values",
+      "variant": "return"
+    },
+    {
+      "id": "options",
+      "from": "flows",
+      "to": "app",
+      "y": 534,
+      "label": "values still possible per filter",
+      "variant": "return",
+      "note": "Sectors narrow Industries; every selection narrows the rest"
+    },
+    {
+      "id": "count",
+      "from": "app",
+      "to": "flows",
+      "y": 594,
+      "label": "count",
+      "variant": "emphasis"
+    },
+    {
+      "id": "query-count",
+      "from": "flows",
+      "to": "dv",
+      "y": 622,
+      "label": "count matching Listed Companies"
+    },
+    {
+      "id": "count-rows",
+      "from": "dv",
+      "to": "flows",
+      "y": 650,
+      "label": "count",
+      "variant": "return"
+    },
+    {
+      "id": "count-result",
+      "from": "flows",
+      "to": "app",
+      "y": 678,
+      "label": "match count",
+      "variant": "return"
+    },
+    {
+      "id": "run-search",
+      "from": "user",
+      "to": "app",
+      "y": 718,
+      "label": "run search",
+      "variant": "emphasis"
+    },
+    {
+      "id": "search",
+      "from": "app",
+      "to": "flows",
+      "y": 746,
+      "label": "search",
+      "variant": "emphasis"
+    },
+    {
+      "id": "query-top",
+      "from": "flows",
+      "to": "dv",
+      "y": 774,
+      "label": "query top 50 by Market Cap"
+    },
+    {
+      "id": "top-rows",
+      "from": "dv",
+      "to": "flows",
+      "y": 802,
+      "label": "rows, largest first",
+      "variant": "return"
+    },
+    {
+      "id": "top-50",
+      "from": "flows",
+      "to": "app",
+      "y": 830,
+      "label": "top 50 Listed Companies",
+      "variant": "return"
+    },
+    {
+      "id": "show",
+      "from": "app",
+      "to": "user",
+      "y": 858,
+      "label": "show results",
+      "variant": "return"
+    },
+    {
+      "id": "refine",
+      "from": "user",
+      "to": "app",
+      "y": 898,
+      "label": "refine Search Criteria",
+      "variant": "dashed",
+      "note": "back to the selection-change loop"
+    },
+    {
+      "id": "submit",
+      "from": "user",
+      "to": "app",
+      "y": 946,
+      "label": "submit whole list as Shortlist",
+      "variant": "emphasis",
+      "note": "blocked when zero companies match"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "entra",
+      "from": 175,
+      "to": 214,
+      "type": "security"
+    },
+    {
+      "participant": "app",
+      "from": 231,
+      "to": 970,
+      "type": "frontend"
+    },
+    {
+      "participant": "dv",
+      "from": 259,
+      "to": 326,
+      "type": "database"
+    },
+    {
+      "participant": "flows",
+      "from": 445,
+      "to": 540,
+      "type": "backend"
+    },
+    {
+      "participant": "dv",
+      "from": 473,
+      "to": 512,
+      "type": "database"
+    },
+    {
+      "participant": "flows",
+      "from": 589,
+      "to": 684,
+      "type": "backend"
+    },
+    {
+      "participant": "dv",
+      "from": 617,
+      "to": 656,
+      "type": "database"
+    },
+    {
+      "participant": "flows",
+      "from": 741,
+      "to": 836,
+      "type": "backend"
+    },
+    {
+      "participant": "dv",
+      "from": 769,
+      "to": 808,
+      "type": "database"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Why search runs in flows",
+      "items": [
+        "Canvas App delegation limits make distinct values and counts over 40,000 rows impractical in the app",
+        "get options, count and search are instant Power Automate flows called from the app",
+        "Sector, Industry and Country lists are read directly from Dataverse"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Submitting the Shortlist",
+      "items": [
+        "The whole top-50 list is submitted; partial selection isn't possible",
+        "Submit is blocked when zero companies match",
+        "Searches before submission aren't saved"
+      ]
+    }
+  ]
+}

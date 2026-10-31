@@ -39,4 +39,15 @@ Archify can't use these SVGs directly. Its `brand` field takes only a raster ima
 2. Commit and push. The repo is public, so it is served at `https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/<name>.png`.
 3. Run `archify.mjs brands capture <url> --json` and put the returned `{url, sha256}` in the node's `brand`.
 
-`icons/png/` already has `power-apps`, `power-automate`, `dataverse`, `azure-openai`, `excel`, `outlook`, `sharepoint` and `entra-id`. Never overwrite a PNG that a diagram uses, because its pinned digest would stop matching. Add a new file instead. Archify has no colour or font settings, so "Microsoft style" means these icons plus Microsoft product names, not a custom palette.
+`icons/brands.json` holds ready-to-use, already-captured `brand` values for every PNG in `icons/png/` (`power-apps`, `power-automate`, `dataverse`, `azure-openai`, `excel`, `outlook`, `sharepoint`, `entra-id`). Copy from it rather than re-capturing, and add an entry whenever you capture a new icon. Never overwrite a PNG that a diagram uses, because its pinned digest would stop matching. Add a new file instead. Archify has no colour or font settings, so "Microsoft style" means these icons plus Microsoft product names, not a custom palette.
+
+## GitHub Pages site
+
+The repo is published at https://akashic.github.io/Diagrams/ (GitHub Pages, legacy build from `main` at `/`). `index.html` is the hand-written overview page. It has one `<section class="system">` per system, with diagram cards that link straight to the archify HTML in `.archify/`. Card thumbnails are in `assets/thumbs/`.
+
+- `.nojekyll` must stay. Without it, Jekyll drops `.archify/` (dot-folders) and every diagram link 404s.
+- Archify folder names are timestamped, so any new or regenerated diagram means updating its card's `href` in `index.html` and regenerating its thumbnail:
+  ```bash
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --window-size=1440,900 --virtual-time-budget=4000 --screenshot=assets/thumbs/<slug>.png "file://$PWD/.archify/<folder>/<slug>.html" && sips -Z 960 assets/thumbs/<slug>.png
+  ```
+- A new system gets its own section, with links to its architecture description, glossary and ADRs.

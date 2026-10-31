@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "2d9759b1-88ef-4c37-8f40-4405f6d893a3",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-power-platform-20261031-120959/candidate.json",
+  "output": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-power-platform-20261031-120959/cva-power-platform.html",
+  "specification": {
+    "sha256": "76db52aa49dcd895bac99f1a9a0a78c127ec66edd972bd3be8e2ca40fb29acde",
+    "bytes": 6952
+  },
+  "artifact": {
+    "sha256": "a2b3bc29fe6cba307f9cc64da8142f194dff6ed234f05f58ebad92db716431ce",
+    "bytes": 1042417
+  }
+}

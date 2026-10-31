@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-logical-20261031-120959/candidate.json",
+    "sha256": "bd55efacd85f5b66a25e82ebb769f52a7875a0d362a34b5aeb499602b82ea405",
+    "bytes": 4078
+  },
+  "artifact": {
+    "path": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-logical-20261031-120959/cva-logical.html",
+    "sha256": "4691cc796f5df261fe5bd4f850ca33524b92b55b2b3f8de3e63ac89941890668",
+    "bytes": 830294
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-logical-20261031-120959/cva-logical.finalize.json",
+    "summaryReceipt": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-logical-20261031-120959/cva-logical.finalize-summary.json",
+    "browserCheckReceipt": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-logical-20261031-120959/cva-logical.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-31T01:06:54.815Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 6131,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

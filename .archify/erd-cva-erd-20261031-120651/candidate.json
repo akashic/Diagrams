@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Client Valuation Automation data model",
+    "locale": "en",
+    "output": ".archify/erd-cva-erd-20261031-120651/cva-erd.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "taxonomy",
+        "label": "Reference data",
+        "focus": ["sector", "industry", "country"],
+        "note": "Every Industry belongs to exactly one Sector; Country stands alone."
+      },
+      {
+        "id": "companies",
+        "label": "Listed Companies",
+        "focus": ["listed_company", "industry", "country"],
+        "note": "Each Listed Company looks up one Industry and one Country and carries its Market Cap in USD."
+      },
+      {
+        "id": "requests",
+        "label": "Requests and Shortlists",
+        "focus": ["valuation_request", "shortlist_entry", "listed_company"],
+        "note": "A Valuation Request holds 1 to 50 Shortlist Entries, each pointing at one Listed Company."
+      }
+    ]
+  },
+  "layout": {
+    "mode": "grid",
+    "gapX": 96,
+    "gapY": 40
+  },
+  "entities": [
+    {
+      "id": "sector",
+      "label": "sector",
+      "sublabel": "Sector",
+      "tag": "Reference data",
+      "row": 0,
+      "col": 0,
+      "attributes": [
+        { "name": "id", "type": "uniqueidentifier", "key": "pk" },
+        { "name": "name", "type": "text(100)" }
+      ]
+    },
+    {
+      "id": "industry",
+      "label": "industry",
+      "sublabel": "Industry",
+      "tag": "Reference data",
+      "row": 1,
+      "col": 0,
+      "attributes": [
+        { "name": "id", "type": "uniqueidentifier", "key": "pk" },
+        { "name": "name", "type": "text(100)" },
+        { "name": "sector_id", "type": "lookup", "key": "fk", "references": "sector.id" }
+      ]
+    },
+    {
+      "id": "country",
+      "label": "country",
+      "sublabel": "Country",
+      "tag": "Reference data",
+      "row": 2,
+      "col": 0,
+      "attributes": [
+        { "name": "id", "type": "uniqueidentifier", "key": "pk" },
+        { "name": "name", "type": "text(100)" }
+      ]
+    },
+    {
+      "id": "listed_company",
+      "label": "listed_company",
+      "sublabel": "Listed Company",
+      "tag": "Company data",
+      "row": 1,
+      "col": 1,
+      "width": 250,
+      "attributes": [
+        { "name": "id", "type": "uniqueidentifier", "key": "pk" },
+        { "name": "name", "type": "text(200)" },
+        { "name": "description", "type": "memo" },
+        { "name": "market_cap_usd", "type": "currency (USD)" },
+        { "name": "industry_id", "type": "lookup", "key": "fk", "references": "industry.id" },
+        { "name": "country_id", "type": "lookup", "key": "fk", "references": "country.id" }
+      ]
+    },
+    {
+      "id": "valuation_request",
+      "label": "valuation_request",
+      "sublabel": "Valuation Request",
+      "tag": "Requests",
+      "row": 0,
+      "col": 2,
+      "width": 260,
+      "attributes": [
+        { "name": "id", "type": "uniqueidentifier", "key": "pk" },
+        { "name": "owner_id", "type": "lookup (systemuser)" },
+        { "name": "client_description", "type": "memo" },
+        { "name": "search_criteria", "type": "memo (JSON)" },
+        { "name": "status", "type": "choice" },
+        { "name": "report_link", "type": "url" }
+      ]
+    },
+    {
+      "id": "shortlist_entry",
+      "label": "shortlist_entry",
+      "sublabel": "Shortlist Entry",
+      "tag": "Requests",
+      "row": 1,
+      "col": 2,
+      "width": 260,
+      "attributes": [
+        { "name": "id", "type": "uniqueidentifier", "key": "pk" },
+        { "name": "valuation_request_id", "type": "lookup", "key": "fk", "references": "valuation_request.id" },
+        { "name": "listed_company_id", "type": "lookup", "key": "fk", "references": "listed_company.id" },
+        { "name": "search_rank", "type": "whole number" },
+        { "name": "match_score", "type": "decimal (%)" },
+        { "name": "rationale", "type": "memo" },
+        { "name": "scoring_status", "type": "choice" }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "industry_sector",
+      "from": "industry",
+      "to": "sector",
+      "label": "belongs to",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "id": "company_industry",
+      "from": "listed_company",
+      "to": "industry",
+      "label": "in",
+      "fromCardinality": "many",
+      "fromOptional": true,
+      "toCardinality": "one"
+    },
+    {
+      "id": "company_country",
+      "from": "listed_company",
+      "to": "country",
+      "label": "listed in",
+      "fromCardinality": "many",
+      "fromOptional": true,
+      "toCardinality": "one"
+    },
+    {
+      "id": "entry_request",
+      "from": "shortlist_entry",
+      "to": "valuation_request",
+      "label": "1 to 50 per request",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "id": "entry_company",
+      "from": "shortlist_entry",
+      "to": "listed_company",
+      "label": "ranks",
+      "fromCardinality": "many",
+      "fromOptional": true,
+      "toCardinality": "one"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Choice values",
+      "items": [
+        "valuation_request.status: Submitted, Scoring, Building Report, Sent, Failed.",
+        "shortlist_entry.scoring_status: pending, scored, not scored (scoring failed for that entry).",
+        "owner_id looks up the Dataverse systemuser table (the User who submitted); that table is outside this model, so no fk link is drawn."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Shortlists",
+      "items": [
+        "Each Valuation Request has 1 to 50 Shortlist Entries.",
+        "A Listed Company can appear on many Valuation Requests' Shortlists, or on none.",
+        "search_rank orders the Shortlist; match_score is the AI's percentage similarity to the Client, with its rationale."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Snapshots and links",
+      "items": [
+        "search_criteria is a JSON snapshot of the selected Sectors, Industries, Countries and the Market Cap min/max.",
+        "market_cap_usd is the Market Cap in USD used for filtering and ranking.",
+        "report_link points at the Valuation Report emailed to the User."
+      ]
+    }
+  ]
+}

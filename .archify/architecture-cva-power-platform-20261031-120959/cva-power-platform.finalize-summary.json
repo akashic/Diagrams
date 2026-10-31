@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-power-platform-20261031-120959/candidate.json",
+    "sha256": "76db52aa49dcd895bac99f1a9a0a78c127ec66edd972bd3be8e2ca40fb29acde",
+    "bytes": 6952
+  },
+  "artifact": {
+    "path": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-power-platform-20261031-120959/cva-power-platform.html",
+    "sha256": "a2b3bc29fe6cba307f9cc64da8142f194dff6ed234f05f58ebad92db716431ce",
+    "bytes": 1042417
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-power-platform-20261031-120959/cva-power-platform.finalize.json",
+    "summaryReceipt": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-power-platform-20261031-120959/cva-power-platform.finalize-summary.json",
+    "browserCheckReceipt": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-power-platform-20261031-120959/cva-power-platform.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-31T01:06:54.815Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 5885,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

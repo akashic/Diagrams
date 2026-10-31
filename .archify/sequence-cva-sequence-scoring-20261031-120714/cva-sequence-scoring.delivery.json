@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "ea5d6a5d-7fc4-4990-82e6-9c86ceb7f217",
+  "status": "current",
+  "command": "deliver",
+  "type": "sequence",
+  "input": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/sequence-cva-sequence-scoring-20261031-120714/candidate.json",
+  "output": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/sequence-cva-sequence-scoring-20261031-120714/cva-sequence-scoring.html",
+  "specification": {
+    "sha256": "069d4ae02ee56c6400fb549bc6e6e406ce7946356a4031978fa933822904c973",
+    "bytes": 8728
+  },
+  "artifact": {
+    "sha256": "f6d9917f574fe7318b097d4c86dac324fc00cd079af39d21b9c8afb5998e96a8",
+    "bytes": 1005911
+  }
+}

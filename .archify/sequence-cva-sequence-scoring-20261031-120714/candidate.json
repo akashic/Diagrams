@@ -1,0 +1,366 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Client Valuation Automation: Scoring and report",
+    "output": ".archify/sequence-cva-sequence-scoring-20261031-120714/cva-sequence-scoring.html",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "legend": {
+      "entries": {
+        "dashed": {
+          "label": "Trigger, retry or failure path"
+        }
+      }
+    }
+  },
+  "participants": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "Submitting User",
+      "sublabel": "valuation staff"
+    },
+    {
+      "id": "app",
+      "type": "frontend",
+      "label": "Canvas App",
+      "sublabel": "Power Apps",
+      "brand": {
+        "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-apps.png",
+        "sha256": "3dcc42141a27b0195d1210bdfdb69cffb332076195f1814e26168f9fe9a049ab"
+      }
+    },
+    {
+      "id": "dv",
+      "type": "database",
+      "label": "Dataverse",
+      "sublabel": "Valuation Requests",
+      "brand": {
+        "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/dataverse.png",
+        "sha256": "a23ebba98010021329a98b14b2c05ca08cee1591233606398fb862525a864e5e"
+      }
+    },
+    {
+      "id": "orch",
+      "type": "backend",
+      "label": "Orch. flow",
+      "sublabel": "Power Automate",
+      "brand": {
+        "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-automate.png",
+        "sha256": "e515389cfdad9104f6ab40220e9ea41d629aa6404ccb3d3f35a227e05a81b3bb"
+      }
+    },
+    {
+      "id": "aoai",
+      "type": "cloud",
+      "label": "OpenAI",
+      "sublabel": "Azure, via connector",
+      "brand": {
+        "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/azure-openai.png",
+        "sha256": "b8d51eeae08c67232154580a6de0eb11b5abe749e3900ec3b082af4599466a06"
+      }
+    },
+    {
+      "id": "sp",
+      "type": "database",
+      "label": "SharePoint",
+      "sublabel": "template workbook",
+      "brand": {
+        "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/sharepoint.png",
+        "sha256": "11b9d89399057335564256dc3c294f9cc85af17b8e05d077fcc954a8ee2dad0c"
+      }
+    },
+    {
+      "id": "xl",
+      "type": "backend",
+      "label": "Excel",
+      "sublabel": "Online (Business)",
+      "brand": {
+        "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/excel.png",
+        "sha256": "7e293aa991a7e3445286b19d7c473274e5966e4a8c0658e009d0d81ccf0ece98"
+      }
+    },
+    {
+      "id": "ol",
+      "type": "cloud",
+      "label": "Outlook",
+      "sublabel": "Office 365 connector",
+      "brand": {
+        "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/outlook.png",
+        "sha256": "c0fac716315c9ef4688f41d16a8263a69f7622bfc5c71a686e29c4d28167173d"
+      }
+    }
+  ],
+  "segments": [
+    {
+      "from": 160,
+      "to": 360,
+      "label": "Submit (status Submitted)"
+    },
+    {
+      "from": 370,
+      "to": 676,
+      "label": "Parallel loop: Apply to each Shortlist Entry (status Scoring)"
+    },
+    {
+      "from": 686,
+      "to": 972,
+      "label": "Build Valuation Report (status Building Report)"
+    },
+    {
+      "from": 982,
+      "to": 1096,
+      "label": "Deliver (status Sent)"
+    },
+    {
+      "from": 1106,
+      "to": 1202,
+      "label": "Failure path: any stage fails as a whole"
+    }
+  ],
+  "messages": [
+    {
+      "id": "submit",
+      "from": "user",
+      "to": "app",
+      "y": 180,
+      "label": "submit Shortlist",
+      "variant": "emphasis"
+    },
+    {
+      "id": "write-request",
+      "from": "app",
+      "to": "dv",
+      "y": 208,
+      "label": "write Valuation Request",
+      "note": "status Submitted"
+    },
+    {
+      "id": "write-entries",
+      "from": "app",
+      "to": "dv",
+      "y": 254,
+      "label": "write Shortlist Entries",
+      "note": "one per Listed Company"
+    },
+    {
+      "id": "row-added",
+      "from": "dv",
+      "to": "orch",
+      "y": 312,
+      "label": "row added trigger",
+      "variant": "dashed"
+    },
+    {
+      "id": "set-scoring",
+      "from": "orch",
+      "to": "dv",
+      "y": 340,
+      "label": "set status Scoring"
+    },
+    {
+      "id": "score",
+      "from": "orch",
+      "to": "aoai",
+      "y": 392,
+      "label": "score Shortlist Entry",
+      "variant": "emphasis",
+      "note": "Client description, Search Criteria, Listed Company description and metadata"
+    },
+    {
+      "id": "score-result",
+      "from": "aoai",
+      "to": "orch",
+      "y": 474,
+      "label": "JSON {score, rationale}",
+      "variant": "return"
+    },
+    {
+      "id": "write-score",
+      "from": "orch",
+      "to": "dv",
+      "y": 502,
+      "label": "write Match Score, rationale",
+      "note": "Shortlist Entry scored"
+    },
+    {
+      "id": "retry",
+      "from": "orch",
+      "to": "aoai",
+      "y": 560,
+      "label": "retry on failure",
+      "variant": "dashed",
+      "note": "built-in retry"
+    },
+    {
+      "id": "not-scored",
+      "from": "orch",
+      "to": "dv",
+      "y": 606,
+      "label": "mark not scored",
+      "variant": "dashed",
+      "note": "retries exhausted; loop continues"
+    },
+    {
+      "id": "set-building",
+      "from": "orch",
+      "to": "dv",
+      "y": 706,
+      "label": "set status Building Report"
+    },
+    {
+      "id": "copy-template",
+      "from": "orch",
+      "to": "sp",
+      "y": 734,
+      "label": "copy template workbook",
+      "note": "per-request file"
+    },
+    {
+      "id": "workbook",
+      "from": "sp",
+      "to": "orch",
+      "y": 790,
+      "label": "workbook file",
+      "variant": "return"
+    },
+    {
+      "id": "add-rows",
+      "from": "orch",
+      "to": "xl",
+      "y": 818,
+      "label": "add table rows",
+      "note": "one per Shortlist Entry, highest Match Score first; unscored entries marked"
+    },
+    {
+      "id": "fill-summary",
+      "from": "orch",
+      "to": "xl",
+      "y": 912,
+      "label": "fill summary sheet",
+      "note": "Client description, Search Criteria"
+    },
+    {
+      "id": "send-report",
+      "from": "orch",
+      "to": "ol",
+      "y": 1002,
+      "label": "send Valuation Report",
+      "variant": "emphasis",
+      "note": "workbook attached"
+    },
+    {
+      "id": "report-email",
+      "from": "ol",
+      "to": "user",
+      "y": 1052,
+      "label": "email with Valuation Report",
+      "variant": "emphasis"
+    },
+    {
+      "id": "set-sent",
+      "from": "orch",
+      "to": "dv",
+      "y": 1080,
+      "label": "save report link, set status Sent"
+    },
+    {
+      "id": "set-failed",
+      "from": "orch",
+      "to": "dv",
+      "y": 1126,
+      "label": "set status Failed",
+      "variant": "dashed"
+    },
+    {
+      "id": "send-failure",
+      "from": "orch",
+      "to": "ol",
+      "y": 1154,
+      "label": "send failure notice",
+      "variant": "dashed"
+    },
+    {
+      "id": "failure-email",
+      "from": "ol",
+      "to": "user",
+      "y": 1182,
+      "label": "failure email",
+      "variant": "dashed"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "app",
+      "from": 175,
+      "to": 260,
+      "type": "frontend"
+    },
+    {
+      "participant": "orch",
+      "from": 307,
+      "to": 1188,
+      "type": "backend"
+    },
+    {
+      "participant": "aoai",
+      "from": 387,
+      "to": 480,
+      "type": "cloud"
+    },
+    {
+      "participant": "sp",
+      "from": 729,
+      "to": 796,
+      "type": "database"
+    },
+    {
+      "participant": "xl",
+      "from": 813,
+      "to": 932,
+      "type": "backend"
+    },
+    {
+      "participant": "ol",
+      "from": 997,
+      "to": 1058,
+      "type": "cloud"
+    },
+    {
+      "participant": "ol",
+      "from": 1149,
+      "to": 1188,
+      "type": "cloud"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Valuation Request status",
+      "items": [
+        "Submitted → Scoring → Building Report → Sent",
+        "Failed is reachable from Submitted, Scoring and Building Report",
+        "A single Shortlist Entry failing doesn't fail the request"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Valuation Report",
+      "items": [
+        "Columns: name, Sector, Industry, Country, Market Cap, Match Score, rationale",
+        "Company data is read live through the lookup",
+        "Emailed to the User who submitted the request"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Access",
+      "items": [
+        "Azure OpenAI is called through a custom connector",
+        "Flow connections use a service account",
+        "Users never reach Azure OpenAI, SharePoint or Outlook directly"
+      ]
+    }
+  ]
+}

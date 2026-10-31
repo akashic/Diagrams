@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "f7e26f37-3e90-4d28-abe8-1b634c4e99f2",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-logical-20261031-120959/candidate.json",
+  "output": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/architecture-cva-logical-20261031-120959/cva-logical.html",
+  "specification": {
+    "sha256": "bd55efacd85f5b66a25e82ebb769f52a7875a0d362a34b5aeb499602b82ea405",
+    "bytes": 4078
+  },
+  "artifact": {
+    "sha256": "4691cc796f5df261fe5bd4f850ca33524b92b55b2b3f8de3e63ac89941890668",
+    "bytes": 830294
+  }
+}

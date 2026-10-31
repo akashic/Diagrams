@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "e357153e-eafe-440e-b5d1-01215bdcface",
+  "status": "current",
+  "command": "deliver",
+  "type": "erd",
+  "input": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/erd-cva-erd-20261031-120651/candidate.json",
+  "output": "/Users/gilesgregg/Documents/GitHub/Diagrams/.archify/erd-cva-erd-20261031-120651/cva-erd.html",
+  "specification": {
+    "sha256": "b1d67d74971d42438d82aca3703b0f1072d2bf5dc96905432828abc72d359658",
+    "bytes": 6284
+  },
+  "artifact": {
+    "sha256": "d9f22ad88b5adea6d342a73d1ad562a9c7259e627101418a730b9836de23ef42",
+    "bytes": 837580
+  }
+}
