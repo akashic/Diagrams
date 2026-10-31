@@ -22,8 +22,21 @@ The skills are installed globally (`~/.agents/skills/`, symlinked into `~/.claud
 - Grilling only produces a shared understanding in the conversation. Once the user confirms it, write it to `docs/architecture/<system>.md` before diagramming, so diagrams can be regenerated from a durable source. Where they exist, use `GLOSSARY.md` terms for node and relationship names.
 - Choose the archify diagram type from the question (architecture, sequence, dataflow, lifecycle, erd, …). One system usually needs several diagrams. Draw each from the same description.
 - By default archify writes each diagram to its own folder, `.archify/<type>-<slug>-<YYYYMMDD-HHMMSS>/`, holding `candidate.json` and `<slug>.html`. The candidate is the editable source. Repair by editing it and re-running `finalize`; never hand-edit the HTML.
+- Diagrams use Microsoft visual style where possible. Product icons go **only** on as-built, product-level diagrams (architecture and sequences that name real products). Logical architecture, ERD and lifecycle diagrams stay unbranded.
 - A diagram is done only when `finalize` exits zero:
 
   ```bash
   node ~/.agents/skills/archify/bin/archify.mjs finalize <type> <candidate.json> <output.html> --quality showcase --json
   ```
+
+## Icons
+
+`icons/` holds the official Microsoft icon packs (Azure, Power Platform, Entra, Microsoft 365 content) plus Microsoft 365 app logos from msicons.com. `icons/README.md` lists the source links, usage terms and folder contents. Check there before downloading anything, and add newly downloaded icons to `icons/` with a README entry.
+
+Archify can't use these SVGs directly. Its `brand` field takes only a raster image at an http(s) URL, pinned by SHA-256. The workflow (full commands in `icons/README.md`):
+
+1. Render the SVG with `sips -s format png -Z 128 <svg> --out icons/png/<name>.png`.
+2. Commit and push. The repo is public, so it is served at `https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/<name>.png`.
+3. Run `archify.mjs brands capture <url> --json` and put the returned `{url, sha256}` in the node's `brand`.
+
+`icons/png/` already has `power-apps`, `power-automate`, `dataverse`, `azure-openai`, `excel`, `outlook`, `sharepoint` and `entra-id`. Never overwrite a PNG that a diagram uses, because its pinned digest would stop matching. Add a new file instead. Archify has no colour or font settings, so "Microsoft style" means these icons plus Microsoft product names, not a custom palette.
