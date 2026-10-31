@@ -51,3 +51,20 @@ The repo is published at https://akashic.github.io/Diagrams/ (GitHub Pages, lega
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --window-size=1440,900 --virtual-time-budget=4000 --screenshot=assets/thumbs/<slug>.png "file://$PWD/.archify/<folder>/<slug>.html" && sips -Z 960 assets/thumbs/<slug>.png
   ```
 - A new system gets its own section, with links to its architecture description, glossary and ADRs.
+
+## Exports (PDF and PowerPoint)
+
+`exports/` holds the shareable copies linked from `index.html`:
+
+- `exports/pdf/<slug>.pdf`: one-page vector PDF of each diagram, with its title.
+- `exports/png/<slug>.png`: 2× PNG of the same, used for slides.
+- `exports/client-valuation-automation.pptx`: a deck with every diagram plus overview, section and closing slides.
+
+Regenerate a diagram's PDF and PNG after any change to it (archify has no PDF export, so this script prints the isolated SVG through headless Chrome):
+
+```bash
+node scripts/export-diagram.mjs export .archify/<folder>/<slug>.html exports/<slug>   # writes exports/<slug>.pdf/.png
+mv exports/<slug>.pdf exports/pdf/ && mv exports/<slug>.png exports/png/
+```
+
+Rebuild the deck with `scripts/build-deck-cva.js`; its header comment lists the prerequisites (pptxgenjs, the pptx skill's `apply_theme.js`, PNGs with the title band cropped). After rebuilding, run the pptx skill's `scripts/office/validate.py` on it. This machine has no LibreOffice, and the command sandbox stops PowerPoint opening files via AppleScript, so visual QA has to happen another way.
