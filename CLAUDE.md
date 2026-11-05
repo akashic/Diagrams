@@ -51,6 +51,7 @@ The repo is published at https://akashic.github.io/Diagrams/ (GitHub Pages, lega
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --window-size=1440,900 --virtual-time-budget=4000 --screenshot=assets/thumbs/<slug>.png "file://$PWD/.archify/<folder>/<slug>.html" && sips -Z 960 assets/thumbs/<slug>.png
   ```
 - A new system gets its own section, with links to its architecture description, glossary and ADRs.
+- Experimental figures live in `experimental/<slug>/` and get a card in their system's Experimental group, with no PDF and no deck slide. `cva-exchange` is built from the Power Platform diagram with the global `anatomy` skill: after changing that diagram, run `node experimental/cva-exchange/build.mjs --audit`. It fails if `model.mjs` no longer matches the diagram's candidate.
 
 ## Exports (PDF and PowerPoint)
 
