@@ -31,7 +31,7 @@ Archify's `brand` field accepts only a **raster image at an http(s) URL** (PNG, 
    `https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-apps.png`.
 3. Capture it to get the digest:
    ```bash
-   node ~/.agents/skills/archify/bin/archify.mjs brands capture "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-apps.png" --json
+   node ~/.claude/skills/archify/bin/archify.mjs brands capture "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-apps.png" --json
    ```
 4. Put the returned `{ "url", "sha256" }` in the node's `brand` field. Archify embeds the image in the output HTML, so the diagram works offline.
 

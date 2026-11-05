@@ -11,11 +11,11 @@ This repo is not a codebase. It holds **system architecture descriptions** and t
 
 ## Skills
 
-The skills are installed globally (`~/.agents/skills/`, symlinked into `~/.claude/skills/`). They are not vendored here, and `.gitignore` blocks project-level installs. Don't reinstall them per project. Use `npx skills update -g` to update them.
+The skills are installed globally (`~/.agents/skills/`, symlinked into `~/.claude/skills/`; archify is installed directly in `~/.claude/skills/`). They are not vendored here, and `.gitignore` blocks project-level installs. Don't reinstall them per project. Use `npx skills update -g` to update them.
 
 - `grilling`: asks questions in rounds over a design tree, giving a recommended answer for each. Don't move to diagramming until the user confirms you've reached a shared understanding.
 - `grill-with-docs` (user-invoked only): grilling plus `domain-modeling`. It writes `GLOSSARY.md` (domain terms only, no implementation detail) and `docs/adr/NNNN-*.md` (only for decisions that are hard to reverse, surprising, and real trade-offs). It creates these files lazily, when there is something to write.
-- `archify`: CLI at `~/.agents/skills/archify/bin/archify.mjs` (Node >= 18). Follow its SKILL.md for authoring. Diagrams here use the "system description" path, so there is no source to trace and no `--repo-root`.
+- `archify`: CLI at `~/.claude/skills/archify/bin/archify.mjs` (Node >= 18). Follow its SKILL.md for authoring. Diagrams here use the "system description" path, so there is no source to trace and no `--repo-root`.
 
 ## Workflow conventions
 
@@ -26,7 +26,7 @@ The skills are installed globally (`~/.agents/skills/`, symlinked into `~/.claud
 - A diagram is done only when `finalize` exits zero:
 
   ```bash
-  node ~/.agents/skills/archify/bin/archify.mjs finalize <type> <candidate.json> <output.html> --quality showcase --json
+  node ~/.claude/skills/archify/bin/archify.mjs finalize <type> <candidate.json> <output.html> --quality showcase --json
   ```
 
 ## Icons
