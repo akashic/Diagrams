@@ -29,7 +29,9 @@
     { "id": "start-on-submit", "from": "db", "to": "orch", "label": "on submit", "variant": "emphasis" },
     { "id": "update-request", "from": "orch", "to": "db", "label": "status + Match Scores" },
     { "id": "score-entries", "from": "orch", "to": "ai", "label": "score Shortlist Entries", "variant": "emphasis" },
+    { "id": "return-scores", "from": "ai", "to": "orch", "label": "Match Score + rationale", "fromSide": "left", "toSide": "right" },
     { "id": "build-report", "from": "orch", "to": "report", "label": "build Valuation Report", "variant": "emphasis" },
+    { "id": "return-report", "from": "report", "to": "orch", "label": "Valuation Report workbook" },
     { "id": "send-email", "from": "orch", "to": "email", "label": "send report or failure notice", "variant": "emphasis", "fromSide": "left", "toSide": "right" },
     { "id": "deliver-report", "from": "email", "to": "user", "label": "Valuation Report (Excel)", "variant": "emphasis", "fromSide": "top", "toSide": "bottom" }
   ],

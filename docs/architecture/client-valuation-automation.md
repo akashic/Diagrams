@@ -15,7 +15,7 @@ A User (internal valuation or advisory staff) describes a private **Client** and
 | **Company Database** | Listed Companies with reference data (Sector, Industry, Country), plus Valuation Requests and Shortlist Entries. |
 | **Orchestrator** | Starts when a Valuation Request is submitted. Moves the request through its statuses, runs scoring, builds the report and sends it. |
 | **AI Scoring Service** | Given the Client description, the Search Criteria and one Listed Company's data, returns `{score, rationale}`. |
-| **Report Service** | Builds the Valuation Report workbook from a template. |
+| **Report Service** | Builds the Valuation Report workbook from a template and returns it to the Orchestrator. |
 | **Email Service** | Sends the Valuation Report (attachment) or a failure notice to the User. |
 | **Identity Provider** | Authenticates Users with their work accounts. |
 | **Market Data Vendor** (external) | The source of Listed Company data, imported monthly. |

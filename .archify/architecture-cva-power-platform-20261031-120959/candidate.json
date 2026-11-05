@@ -17,8 +17,8 @@
     { "id": "dataflow", "type": "backend", "label": "Dataverse dataflow", "sublabel": "Power Query · monthly", "pos": [990, 380], "size": [170, 64] },
     { "id": "orch", "type": "backend", "label": "Orchestration flow", "sublabel": "automated · row added", "pos": [685, 560], "size": [170, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/power-automate.png", "sha256": "e515389cfdad9104f6ab40220e9ea41d629aa6404ccb3d3f35a227e05a81b3bb" } },
     { "id": "outlook", "type": "cloud", "label": "Office 365 Outlook", "sublabel": "connector", "pos": [40, 760], "size": [150, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/outlook.png", "sha256": "c0fac716315c9ef4688f41d16a8263a69f7622bfc5c71a686e29c4d28167173d" } },
-    { "id": "sharepoint", "type": "database", "label": "SharePoint", "sublabel": "template workbook", "pos": [340, 760], "size": [170, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/sharepoint.png", "sha256": "11b9d89399057335564256dc3c294f9cc85af17b8e05d077fcc954a8ee2dad0c" } },
-    { "id": "excel", "type": "cloud", "label": "Excel Online (Business)", "sublabel": "connector", "pos": [680, 760], "size": [180, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/excel.png", "sha256": "7e293aa991a7e3445286b19d7c473274e5966e4a8c0658e009d0d81ccf0ece98" } },
+    { "id": "sharepoint", "type": "database", "label": "SharePoint", "sublabel": "template workbook", "pos": [685, 760], "size": [170, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/sharepoint.png", "sha256": "11b9d89399057335564256dc3c294f9cc85af17b8e05d077fcc954a8ee2dad0c" } },
+    { "id": "excel", "type": "cloud", "label": "Excel Online (Business)", "sublabel": "connector", "pos": [335, 760], "size": [180, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/excel.png", "sha256": "7e293aa991a7e3445286b19d7c473274e5966e4a8c0658e009d0d81ccf0ece98" } },
     { "id": "aoai", "type": "cloud", "label": "Azure OpenAI", "sublabel": "GPT-4-class · custom connector", "pos": [980, 760], "size": [180, 64], "brand": { "url": "https://raw.githubusercontent.com/akashic/Diagrams/main/icons/png/azure-openai.png", "sha256": "b8d51eeae08c67232154580a6de0eb11b5abe749e3900ec3b082af4599466a06" } }
   ],
   "boundaries": [
@@ -36,8 +36,10 @@
     { "id": "upsert", "from": "dataflow", "to": "dv", "label": "upsert in place", "variant": "dashed" },
     { "id": "row-added", "from": "dv", "to": "orch", "label": "row added trigger", "variant": "emphasis" },
     { "id": "update-request", "from": "orch", "to": "dv", "label": "status + Match Scores" },
-    { "id": "score-entries", "from": "orch", "to": "aoai", "label": "score each Shortlist Entry", "variant": "emphasis", "fromSide": "right", "toSide": "top" },
+    { "id": "score-entries", "from": "orch", "to": "aoai", "label": "score each Shortlist Entry", "variant": "emphasis" },
+    { "id": "return-scores", "from": "aoai", "to": "orch", "label": "JSON score + rationale", "fromSide": "top", "toSide": "right" },
     { "id": "copy-template", "from": "orch", "to": "sharepoint", "label": "copy template per request", "fromSide": "bottom", "toSide": "top" },
+    { "id": "return-workbook", "from": "sharepoint", "to": "orch", "label": "workbook file" },
     { "id": "fill-rows", "from": "orch", "to": "excel", "label": "add rows · fill summary", "variant": "emphasis" },
     { "id": "write-workbook", "from": "excel", "to": "sharepoint", "label": "write workbook" },
     { "id": "send-email", "from": "orch", "to": "outlook", "label": "send report or failure notice", "variant": "emphasis", "fromSide": "left", "toSide": "right" },
